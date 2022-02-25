@@ -25,7 +25,7 @@ describe('Testing Phone Controller', function () {
     });
 
     describe('Get Phone By ID', function () {
-        it('should return a single phone', function (done) {
+        it('should return OK with a single phone', function (done) {
             chai.request(BASE_URL)
                 .get("/phone/1")
                 .end(function (err, res) {
@@ -34,6 +34,15 @@ describe('Testing Phone Controller', function () {
                     expect(res.body[0]).to.have.property('id').to.be.equal(1);
                     expect(res.body[0].name).not.be.null;
                     expect(res.body[0].price).not.be.null;
+                    done();
+                })
+        });
+
+        it('should return NOT FOUND because the phone does not exist', function (done) {
+            chai.request(BASE_URL)
+                .get("/phone/0")
+                .end(function (err, res) {
+                    expect(res).to.have.status(httpCode.codes.NOTFOUND);
                     done();
                 })
         });
