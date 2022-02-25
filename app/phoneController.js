@@ -13,4 +13,16 @@ phoneController.getPhones = (req, res) => {
     });
 }
 
+phoneController.getPhoneById = (req, res) => {
+
+    let id = req.params.id;
+    let sql = 'SELECT * FROM phones WHERE id = ?';
+    connection.query(sql, [id], function (err, phone) {
+        if (!err && phone.length === 1) {
+            res.status(httpCode.codes.OK).json(phone);
+        } else
+            res.status(httpCode.codes.NOTFOUND).json('Phone ' + id + ' not found');
+    });
+}
+
 module.exports = phoneController;
