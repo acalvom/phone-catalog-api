@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 8000;
 const app = express();
 
+const phonesRoutes = require('./app/phoneRoutes');
+app.use(phonesRoutes);
+
 app.disable("x-powered-by");
 app.use(bodyParser.urlencoded({
     extended: true
@@ -27,3 +30,4 @@ app.listen(port, function () {
     console.log("Hour: " + Date());
 });
 
+module.exports = app;
