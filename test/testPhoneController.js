@@ -47,4 +47,15 @@ describe('Testing Phone Controller', function () {
                 })
         });
     });
+
+    describe('Delete Phone By ID', function () {
+        it('should return NOT FOUND code because phone does not exist', function (done) {
+            chai.request(BASE_URL)
+                .delete("/phone/0")
+                .end(function (err, res) {
+                    expect(res).to.have.status(httpCode.codes.NOTFOUND);
+                    done();
+                })
+        });
+    });
 })
