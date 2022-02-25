@@ -1,3 +1,4 @@
+const connection = require('./database/database');
 const phoneController = {};
 
 const phoneList = [
@@ -52,6 +53,7 @@ const phoneList = [
 ];
 
 phoneController.getPhones = (req, res) => {
+    connection.connect();
     console.log(phoneList)
     res.json(phoneList);
 }
