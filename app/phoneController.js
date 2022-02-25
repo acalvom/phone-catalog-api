@@ -14,7 +14,6 @@ phoneController.getPhones = (req, res) => {
 }
 
 phoneController.getPhoneById = (req, res) => {
-
     let id = req.params.id;
     let sql = 'SELECT * FROM phones WHERE id = ?';
     connection.query(sql, [id], function (err, phone) {
@@ -25,4 +24,9 @@ phoneController.getPhoneById = (req, res) => {
     });
 }
 
+phoneController.deletePhoneById = (req, res) => {
+    let id = req.params.id;
+    let sql = 'DELETE FROM phones WHERE id = ?';
+    console.log(id)
+}
 module.exports = phoneController;
