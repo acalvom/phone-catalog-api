@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const connection = require('./database/database');
 const httpCode = require("../app/utils/httpCodes");
 const phoneController = {};
@@ -48,7 +50,7 @@ phoneController.postPhone = (req, res) => {
         ram: req.body.phoneRam,
         imageFileName: originalname,
         imageEncryptedFileName: filename,
-        imageFilePath: path
+        imageFilePath: path.split('\\').splice(1).join('\\')
     }
 
     if (Object.keys(phone).length === 0)
@@ -63,6 +65,15 @@ phoneController.postPhone = (req, res) => {
                 res.status(httpCode.codes.SERVERERROR).json('Internal Server Error');
         });
     }
+}
+
+phoneController.getImageByFilename = (req, res) => {
+    const filename = req.params.filename;
+    const readStream = fs.createReadStream(path.join(__dirname, 'uploads', filename));
+    readStream.pipe(res);
+    readStream.on('error', (err) => {
+        res.json(err);
+    });
 }
 
 module.exports = phoneController;
