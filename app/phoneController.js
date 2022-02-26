@@ -36,12 +36,33 @@ phoneController.deletePhoneById = (req, res) => {
 }
 
 phoneController.postPhone = (req, res) => {
-    const { filename, path } = req.file;
-    const phone = req.body;
-    console.log(filename, path, phone)
-    res.send(
-        'aaa'
-    )
+    const {originalname, filename, path} = req.file;
+    const phone = {
+        name: req.body.phoneName,
+        manufacturer: req.body.phoneManufacturer,
+        description: req.body.phoneDescription,
+        color: req.body.phoneColor,
+        price: req.body.phonePrice,
+        screen: req.body.phoneScreen,
+        processor: req.body.phoneProcessor,
+        ram: req.body.phoneRam,
+        imageFileName: originalname,
+        imageEncryptedFileName: filename,
+        imageFilePath: path
+    }
+
+    if (Object.keys(phone).length === 0)
+        res.status(httpCode.codes.BADREQUEST).json('No phone information sent');
+    else {
+        let sql = 'INSERT INTO phones SET ?';
+        connection.query(sql, [phone], function (err, result) {
+            if (!err) {
+                phone.id = result.insertId;
+                res.status(httpCode.codes.CREATED).json(phone);
+            } else
+                res.status(httpCode.codes.SERVERERROR).json('Internal Server Error');
+        });
+    }
 }
 
 module.exports = phoneController;
