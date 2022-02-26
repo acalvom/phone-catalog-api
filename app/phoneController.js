@@ -36,9 +36,12 @@ phoneController.deletePhoneById = (req, res) => {
 }
 
 phoneController.postPhone = (req, res) => {
-    let phone = req.body;
-    console.log(phone)
-    res.json(phone)
+    const { filename, path } = req.file;
+    const phone = req.body;
+    console.log(filename, path, phone)
+    res.send(
+        'aaa'
+    )
 }
 
 module.exports = phoneController;
