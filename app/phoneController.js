@@ -34,4 +34,11 @@ phoneController.deletePhoneById = (req, res) => {
             res.status(httpCode.codes.NOTFOUND).json(['Phone ' + id + ' is not found']);
     });
 }
+
+phoneController.postPhone = (req, res) => {
+    let phone = req.body;
+    console.log(phone)
+    res.json(phone)
+}
+
 module.exports = phoneController;
