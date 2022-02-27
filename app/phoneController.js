@@ -76,4 +76,15 @@ phoneController.getImageByFilename = (req, res) => {
     });
 }
 
+phoneController.deleteImageByFilename = (req, res) => {
+    const filename = req.params.filename;
+    try {
+        fs.unlinkSync(path.join(__dirname, 'uploads', filename));
+        return res.status(200).json('Successfully! Image has been Deleted');
+    } catch (err) {
+        // handle the error
+        return res.status(400).send(err);
+    }
+
+}
 module.exports = phoneController;

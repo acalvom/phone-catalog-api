@@ -11,6 +11,7 @@ router.delete('/phone/:id', phoneController.deletePhoneById);
 router.post('/add', upload.single('phoneImage'), phoneController.postPhone);
 router.get('/uploads/:filename', phoneController.getImageByFilename);
 router.get('/phone/uploads/:filename', phoneController.getImageByFilename);
+router.delete('/uploads/:filename', phoneController.deleteImageByFilename);
 
 
 module.exports = router;
